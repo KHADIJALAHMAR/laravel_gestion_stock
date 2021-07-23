@@ -14,7 +14,7 @@
     <table class="table table-dark m-2">
         <thead>
             <tr>
-              <th scope="col">ID</th>
+              <th scope="col">Id</th>
               <th scope="col">Name_product</th>
               <th scope="col">Descreption</th>
               <th scope="col">prix</th>
