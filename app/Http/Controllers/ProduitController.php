@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\produit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProduitController extends Controller
 {
@@ -14,76 +15,115 @@ class ProduitController extends Controller
      */
     public function index()
     {
-        //
+         $produit = produit::all();
+         return view('produit',['produits' => $produit]);
     }
+    public function create (){
 
+      return view('create');
+    }
+    public function store(Request $request)
+    {
+
+
+        $request->validate([
+            'name_product'=>'required',
+            'descreption'=>'required',
+            'prix'=>'required',
+        ]);
+        $query = DB::table('produit')->insert(
+            [
+                'name_product'=>$request->name_product,
+                'descreption'=>$request->descreption,
+                'prix'=>$request->prix
+            ]);
+            if ($query){
+                return back()->with('success','Data have been succesfuly inserted');
+            }else{
+                return back()->with('fail','something went wrong ');
+            }
+
+    }
+    public function edit($id){
+
+        $produit =  produit::findOrFail($id);
+
+        return view('edit',['produits' => $produit]);
+       
+    }
+    
+    
+   
+ 
+  
+}
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function create()
+    // {
+    //     //
+    // }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    // /**
+    //  * Store a newly created resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function store(Request $request)
+    // {
+    //     //
+    // }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\produit  $produit
-     * @return \Illuminate\Http\Response
-     */
-    public function show(produit $produit)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  \App\Models\produit  $produit
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show(produit $produit)
+    // {
+    //     //
+    // }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\produit  $produit
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(produit $produit)
-    {
-        //
-    }
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  *
+    //  * @param  \App\Models\produit  $produit
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function edit(produit $produit)
+    // {
+    //     //
+    // }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\produit  $produit
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, produit $produit)
-    {
-        //
-    }
+    // /**
+    //  * Update the specified resource in storage.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  \App\Models\produit  $produit
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function update(Request $request, produit $produit)
+    // {
+    //     //
+    // }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\produit  $produit
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(produit $produit)
-    {
+    // /**
+    //  * Remove the specified resource from storage.
+    //  *
+    //  * @param  \App\Models\produit  $produit
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function destroy(produit $produit)
+    // {
 
-        //
-    }
-    public function hello ($name){
-        return 'hello' .$name;
-    }
-}
+    //     //
+    // }
+    // public function hello ($name){
+    //     return 'hello' .$name;
+    // }
+
