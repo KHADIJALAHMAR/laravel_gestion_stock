@@ -63,11 +63,27 @@ class ProduitController extends Controller
     }
     public function update(Request $input)
     {
+        
+        
+        $query= DB::table('produit')->where('id', $input->id)->update([
+            'name_product'=>$input->name_product,
+            'descreption'=>$input->descreption,
+            'prix'=>$input->prix
+        ]);
+    
+
+        return redirect(route('produit'));
+        if ($query){
+            return back()->with('success','oook');
+        }else{
+            return back()->with('fail','no  ');
+        }
     
     
    
  
   
+}
 }
     /**
      * Show the form for creating a new resource.
