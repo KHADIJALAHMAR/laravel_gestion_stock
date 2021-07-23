@@ -51,6 +51,18 @@ class ProduitController extends Controller
         return view('edit',['produits' => $produit]);
        
     }
+    public function delete($id)
+    {
+       
+        $produit = produit::findOrFail($id);
+
+        $produit->delete();
+
+        return redirect(route('produit'));
+
+    }
+    public function update(Request $input)
+    {
     
     
    
